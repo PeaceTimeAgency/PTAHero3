@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Peace Time Agency – Broadcasting Harmony Across the Timeline</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Peace Time Agency – a premium creator‑first TikTok LIVE agency that uses digital diplomacy to spread peace across the stars.">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+/* -------------------------------------------------
+   Core Variables
+------------------------------------------------- */
+:root {
+    --bg-primary: #0D1B2A;
+    --bg-secondary: #0A0F1A;
+    --accent-orange: #F26419;
+    --accent-pink: #F00699;
+    --text-primary: #FFFFFF;
+    --glass-bg: rgba(255,255,255,0.07);
+    --glass-border: rgba(255,255,255,0.12);
+    --neon-glow: 0 0 6px var(--accent-pink), 0 0 12px var(--accent-pink);
+}
+
+/* -------------------------------------------------
+   Reset & Layout
+------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing:border-box; margin:0; padding:0; }
+html,body { height:100%; font-size:16px; }
+body {
+    font-family: 'Montserrat',Arial,sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* Film‑grain overlay ------------------------------------------------- */
+body::after {
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,.015) 0,
+        rgba(255,255,255,.015) 2px,
+        transparent 2px,
+        transparent 4px);
+    opacity:.6;
+}
+
+/* -------------------------------------------------
+   Starfield (canvas)
+------------------------------------------------- */
+#starfield {
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-2;
+}
+
+/* -------------------------------------------------
+   Glassmorphic Nav
+------------------------------------------------- */
+header {
+    position:sticky;
+    top:0;
+    width:100%;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: var(--glass-bg);
+    border-bottom:1px solid var(--glass-border);
+    z-index:10;
+}
+nav {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1200px;
+    margin:auto;
+    padding:0.7rem 1.5rem;
+}
+nav a {
+    color:var(--text-primary);
+    text-decoration:none;
+    margin:0 1rem;
+    font-weight:600;
+    position:relative;
+}
+nav a::after{
+    content:"";
+    position:absolute;
+    height:2px;
+    width:0;
+    left:0;
+    bottom:-4px;
+    background:var(--accent-pink);
+    transition:width .3s;
+}
+nav a:hover::after{ width:100%; }
+.logo{
+    font-size:1.3rem;
+    font-weight:700;
+    color:var(--accent-pink);
+    text-shadow:0 0 8px var(--accent-pink);
+}
+
+/* -------------------------------------------------
+   Hero Section
+------------------------------------------------- */
+.hero {
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
+    padding:2rem;
+}
+.hero h1{
+    font-size:2.6rem;
+    font-weight:700;
+    margin:0.8rem 0;
+    text-shadow:0 0 8px var(--accent-orange);
+}
+.hero p{
+    font-size:1.2rem;
+    max-width:620px;
+    margin:0 auto;
+    opacity:.86;
+}
+
+/* Orbit rings ------------------------------------------------- */
+.orbit {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.ring{
+    border:2px solid var(--accent-orange);
+    border-radius:50%;
+    position:absolute;
+    opacity:.35;
+    animation:spin linear infinite;
+}
+.ring1{
+    width:260px;
+    height:260px;
+    animation-duration:40s;
+}
+.ring2{
+    width:340px;
+    height:340px;
+    border-color:var(--accent-pink);
+    animation-duration:57s;
+}
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+/* Peace‑sign clock ------------------------------------------------- */
+.peace-clock{
+    position:relative;
+    width:180px;
+    height:180px;
+}
+.peace-clock svg{
+    width:100%;
+    height:100%;
+    filter:drop-shadow(0 0 8px var(--accent-pink));
+}
+.clock-hand{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform-origin:bottom center;
+    background:var(--accent-pink);
+    border-radius:2px;
+}
+.clock-hand.hour{
+    width:4px;
+    height:48px;
+    margin-left:-2px;
+    margin-top:-48px;
+    animation: rotateHour 12s linear infinite;
+}
+.clock-hand.minute{
+    width:3px;
+    height:68px;
+    margin-left:-1.5px;
+    margin-top:-68px;
+    animation: rotateMinute 6s linear infinite;
+}
+@keyframes rotateHour{
+    from{transform:translate(-50%,-50%) rotate(0deg);}
+    to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+@keyframes rotateMinute{
+    from{transform:translate(-50%,-50%) rotate(0deg);}
+    to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+/* Video placeholders (TikTok‑style) ------------------------------------------------- */
+.video-placeholder{
+    position:absolute;
+    width:100px;
+    height:176px;
+    background:rgba(0,0,0,.5);
+    border:2px solid var(--accent-orange);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 0 12px var(--accent-orange);
+    animation: float 8s ease-in-out infinite;
+}
+.video-placeholder::before{
+    content:"▶";
+    position:absolute;
+    inset:0;
+    font-size:2.4rem;
+    color:var(--accent-pink);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-shadow:0 0 6px var(--accent-pink);
+}
+.video-placeholder:nth-child(2){ left:calc(50% - 150px); top:30%; animation-delay:1s; }
+.video-placeholder:nth-child(3){ left:calc(50% + 120px); top:40%; animation-delay:2s; }
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+}
+
+/* -------------------------------------------------
+   Dashboard (Bento Grid)
+------------------------------------------------- */
+.dashboard{
+    display:grid;
+    max-width:1200px;
+    margin:4rem auto;
+    gap:1.6rem;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    padding:0 1rem;
+}
+.card{
+    background:var(--glass-bg);
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-radius:12px;
+    padding:1.5rem;
+    position:relative;
+    overflow:hidden;
+    transition:transform .3s,box-shadow .3s;
+}
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+.card h2{
+    font-size:1.45rem;
+    margin-bottom:0.8rem;
+    color:var(--accent-orange);
+    text-shadow:0 0 6px var(--accent-orange);
+}
+.card p, .card li{
+    font-size:0.94rem;
+    line-height:1.45;
+    opacity:.92;
+}
+
+/* Active Transmissions – video list ------------------------------------------------- */
+.video-card{
+    position:relative;
+    width:100%;
+    padding-top:177%; /* 9:16 aspect */
+    background:#111;
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:0.8rem;
+}
+.video-card::after{
+    content:"LIVE";
+    position:absolute;
+    top:8px;
+    left:8px;
+    background:var(--accent-pink);
+    color:#fff;
+    padding:2px 6px;
+    font-size:0.7rem;
+    font-weight:600;
+    border-radius:3px;
+    text-shadow:0 0 4px var(--accent-pink);
+}
+
+/* Galactic Stats – number cards ------------------------------------------------- */
+.stat{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:0.8rem 0;
+}
+.stat .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:1.6rem;
+    color:var(--accent-pink);
+    text-shadow:0 0 8px var(--accent-pink);
+}
+.stat .label{
+    font-size:0.85rem;
+    opacity:.78;
+}
+
+/* Recruitment CTA ------------------------------------------------- */
+.toggle-btn{
+    display:inline-block;
+    padding:0.6rem 1.5rem;
+    margin-top:0.8rem;
+    background:transparent;
+    color:var(--accent-orange);
+    font-weight:600;
+    border:2px solid var(--accent-orange);
+    border-radius:30px;
+    cursor:pointer;
+    text-shadow:0 0 4px var(--accent-orange);
+    transition:background .3s,box-shadow .3s;
+}
+.toggle-btn:hover{
+    background:var(--accent-orange);
+    color:#000;
+    box-shadow:0 0 12px var(--accent-orange);
+}
+.toggle-btn.active{
+    background:var(--accent-pink);
+    color:#000;
+    box-shadow:0 0 12px var(--accent-pink);
+}
+
+/* -------------------------------------------------
+   Footer (Nebula)
+------------------------------------------------- */
+footer{
+    position:relative;
+    padding:2.5rem 1rem;
+    text-align:center;
+    color:#ddd;
+    background:linear-gradient(225deg,#0D1B2A 0%,#16031A 100%);
+    overflow:hidden;
+}
+footer::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 30% 30%,rgba(240,100,25,.16),transparent 60%),
+                radial-gradient(circle at 70% 70%,rgba(240,6,153,.16),transparent 70%);
+    animation: nebula 30s linear infinite;
+}
+@keyframes nebula{
+    0%{ background-position:0% 0%;}
+    100%{ background-position:100% 100%;}
+}
+footer .logo{
+    font-size:1.2rem;
+    font-weight:700;
+    color:var(--accent-pink);
+    text-shadow:0 0 8px var(--accent-pink);
+    margin-bottom:0.6rem;
+}
+footer p{
+    font-size:0.9rem;
+    opacity:.78;
+}
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<header>
+  <nav>
+    <div class="logo">Peace&nbsp;Time Agency</div>
+    <div>
+      <a href="#hero">Home</a>
+      <a href="#active">Active Transmissions</a>
+      <a href="#stats">Stats</a>
+      <a href="#recruit">Recruit</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero" id="hero">
+  <div class="orbit">
+    <div class="ring ring1"></div>
+    <div class="ring ring2"></div>
+  </div>
+
+  <div class="peace-clock">
+    <!-- Peace symbol plus central circle -->
+    <svg viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" stroke="var(--accent-pink)" stroke-width="4" fill="none"/>
+      <line x1="50" y1="50" x2="50" y2="15" stroke="var(--accent-pink)" stroke-width="4"/>
+      <line x1="50" y1="50" x2="28" y2="72" stroke="var(--accent-pink)" stroke-width="4"/>
+      <line x1="50" y1="50" x2="72" y2="72" stroke="var(--accent-pink)" stroke-width="4"/>
+    </svg>
+    <div class="clock-hand hour"></div>
+    <div class="clock-hand minute"></div>
+  </div>
+
+  <h1>Broadcasting Harmony Across the Timeline</h1>
+  <p>We empower creators to transmit peace, solidarity, and digital diplomacy across the galaxy. Join the agency that turns TikTok LIVE into interstellar dialogue.</p>
+
+  <div class="video-placeholder" style="left:calc(50% - 130px); top:55%;"></div>
+  <div class="video-placeholder" style="left:calc(50% + 30px); top:58%;"></div>
+</section>
+
+<section class="dashboard">
+
+  <!-- Active Transmissions -->
+  <article class="card" id="active">
+    <h2>Active Transmissions</h2>
+    <div class="video-card" aria-label="Live stream placeholder"></div>
+    <div class="video-card" aria-label="Live stream placeholder"></div>
+    <div class="video-card" aria-label="Live stream placeholder"></div>
+    <p>👾 Real‑time peace‑building streams from creators across the solar system.</p>
+  </article>
+
+  <!-- Galactic Peace Stats -->
+  <article class="card" id="stats">
+    <h2>Galactic Peace Stats</h2>
+    <div class="stat">
+      <div class="num">12M+</div>
+      <div class="label">Hours of Harmony Broadcasted</div>
+    </div>
+    <div class="stat">
+      <div class="num">4.3K</div>
+      <div class="label">Creators Joined</div>
+    </div>
+    <div class="stat">
+      <div class="num">350</div>
+      <div class="label">Diplomatic Missions Completed</div>
+    </div>
+  </article>
+
+  <!-- Agent Recruitment -->
+  <article class="card" id="recruit">
+    <h2>Agent Recruitment</h2>
+    <p>Ready to become a Peace‑time Agent? We're looking for bold creators with a heart for interstellar unity. Deploy your influence, earn, and help the galaxy thrive.</p>
+    <button class="toggle-btn" id="applyBtn">Apply Now</button>
+    <p class="mt-2" style="font-size:0.85rem; opacity:.78;">No card required – just your passion.</p>
+  </article>
+
+</section>
+
+<footer>
+  <div class="logo">Peace Time Agency</div>
+  <p>© 2026 Peace Time Agency • All rights reserved.</p>
+</footer>
+
+<script>
+/* -------------------------------------------------
+   Starfield (simple)
+------------------------------------------------- */
+(() => {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const numStars = 200;
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initStars();
+    }
+
+    function initStars() {
+        stars = [];
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.3 + 0.2,
+                o: Math.random() * 0.7 + 0.3
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = '#fff';
+        stars.forEach(s => {
+            ctx.globalAlpha = s.o;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+
+    resize();
+    draw();
+    window.addEventListener('resize', resize);
+})();
+
+/* -------------------------------------------------
+   Toggle button interaction
+------------------------------------------------- */
+const applyBtn = document.getElementById('applyBtn');
+applyBtn.addEventListener('click', () => {
+    applyBtn.classList.toggle('active');
+    if (applyBtn.classList.contains('active')) {
+        applyBtn.textContent = 'Submitted ✓';
+    } else {
+        applyBtn.textContent = 'Apply Now';
+    }
+});
+</script>
+</body>
+</html>
